@@ -8,6 +8,10 @@ const app = express();
 app.use(express.json());
 
 const APP_ID = process.env.GITHUB_APP_ID;
+if (!process.env.GITHUB_PRIVATE_KEY) {
+  console.error('GITHUB_PRIVATE_KEY is not set!');
+  process.exit(1);
+}
 const PRIVATE_KEY = process.env.GITHUB_PRIVATE_KEY.replace(/\\n/g, '\n');
 
 app.post('/webhook', async (req, res) => {
